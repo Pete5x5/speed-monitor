@@ -17,9 +17,9 @@ threads = None # Threads for speedtest
 
 # configDict = dict()
 # configList = [line.strip().split(' = ') for line in open('config.txt')]  # pull run parameters from config.txt
-testsPerRound = 3 # Number of tests before uploading to Gist
-numRounds = 2 # Number of times to upload to Gist
-testWaitSec = 60 # Wait time between tests
+testsPerRound = 3 # Number of tests before uploading to Gist (default 3)
+numRounds = 2240 # Number of times to upload to Gist (2240 = 7 days of testing @ 90sec/test @ 3 tests/round)
+testWaitSec = 90 # Wait time between tests (default 90 sec)
 
 creds = [line.strip() for line in open('creds.txt')]  # pull API credentials from creds.txt
 keY = creds[0]  # API key from creds.txt
@@ -42,6 +42,10 @@ if Path(postPath).exists() is False or Path(postPath).is_dir() is False: # if th
     
 filePath = os.path.join(postPath,fileName) # path with file name
 postFile = open(filePath, 'w') # make the file
+
+global gistName, gistPath # global vars
+gistName = 'gist-' + gendate + '.txt'
+gistPath = os.path.join(postPath,gistName) # path with gist name
 
 def runTime(): # time entry for content
     global gendate2 # global vars
@@ -103,6 +107,12 @@ def gistInfo(): # get Gist info from API
     print(gistID)
     print(gistADD)
 
+def writeGist(): # get Gist info from API
+    global gistURL # global vars
+    postGist = open(gistPath, 'w') # open file to write
+    postGist.write(str(gistURL) + '\n')
+    postGist.close() # close the file
+
 #---------------------------------#
 
 # First run to get a quick test and Gist URL:
@@ -113,6 +123,7 @@ writeContent()
 readContent()
 makeGist()
 gistInfo()
+writeGist()
 
 # Loop to run for desired time:
 for n1 in range(numRounds):
