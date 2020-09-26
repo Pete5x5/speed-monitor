@@ -1,0 +1,5 @@
+requests
+datetime
+pathlib
+pythonping
+speedtest-cli
