@@ -72,6 +72,8 @@ def makeContent(): # put content together
     logEntry += ["Download speed: " + str(dn) + "Mbps"] # add download speed to list
     logEntry += ["Upload speed: " + str(up) + "Mbps"] # add upload speed to list
     logEntry += ["-----------------------------------"] # divider run time to list to make it easier to read
+    for L1 in range(len(logEntry)): # for each line in the log entry
+        print(logEntry[L1]) # print the line
     allContent += [logEntry] # add newly generated list to master list to be uploaded
 
 def writeContent(): # write content to file
@@ -96,7 +98,7 @@ def makeGist(): # upload file contents to Gist
     r1 = requests.post('https://api.github.com/gists'+gistADD, auth = auth1, headers=headers1, data = json.dumps(payLoad)) # API request
     resp = dict(r1.json()) # response from API
     print('')
-    print(resp) # print response
+    # print(resp) # print response
 
 def gistInfo(): # get Gist info from API
     global gistURL, gistID, gistADD # global vars
@@ -104,8 +106,8 @@ def gistInfo(): # get Gist info from API
     gistID = r1.json()['id'] # ID of the created Gist
     gistADD = "/"+gistID # ID formatted to append to the API URL for updating the entry
     print(gistURL)
-    print(gistID)
-    print(gistADD)
+    # print(gistID)
+    # print(gistADD)
 
 def writeGist(): # get Gist info from API
     global gistURL # global vars
