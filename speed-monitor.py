@@ -1,3 +1,5 @@
+#%%
+
 #!/usr/bin/env python
 # coding: utf-8
 
@@ -47,6 +49,8 @@ global gistName, gistPath # global vars
 gistName = 'gist-' + gendate + '.txt'
 gistPath = os.path.join(postPath,gistName) # path with gist name
 
+#%%
+
 def runTime(): # time entry for content
     global gendate2 # global vars
     gendate2 = (datetime.datetime.now()).strftime('%Y/%m/%d-%H:%M:%S')
@@ -61,6 +65,7 @@ def speedTest(): # speedtest entry for content
 def pingTest(): # ping entry for content
     global pingMS # global vars
     pingList = ping('google.ca', size=40, count=10) # ping Google 10 times
+    print(pingList) #@
     pingMS = pingList.rtt_avg_ms # take the average ping in ms
 
 def makeContent(): # put content together
@@ -115,26 +120,28 @@ def writeGist(): # get Gist info from API
     postGist.write(str(gistURL) + '\n')
     postGist.close() # close the file
 
+
+#%%
 #---------------------------------#
 
-# First run to get a quick test and Gist URL:
-speedTest()
-pingTest()
-makeContent()
-writeContent()
-readContent()
-makeGist()
-gistInfo()
-writeGist()
+# # First run to get a quick test and Gist URL:
+# speedTest()
+# pingTest()
+# makeContent()
+# writeContent()
+# readContent()
+# makeGist()
+# gistInfo()
+# writeGist()
 
-# Loop to run for desired time:
-for n1 in range(numRounds):
-    for n2 in range(testsPerRound):
-        speedTest()
-        pingTest()
-        makeContent()
-        writeContent()
-        time.sleep(testWaitSec)
-    readContent()
-    makeGist()
-    gistInfo()
+# # Loop to run for desired time:
+# for n1 in range(numRounds):
+#     for n2 in range(testsPerRound):
+#         speedTest()
+#         pingTest()
+#         makeContent()
+#         writeContent()
+#         time.sleep(testWaitSec)
+#     readContent()
+#     makeGist()
+#     gistInfo()
